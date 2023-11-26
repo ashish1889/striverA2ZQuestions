@@ -1,5 +1,8 @@
 //Problem: https://leetcode.com/problems/fruit-into-baskets/description/
 //Video soln:  https://www.youtube.com/watch?v=Oi09pnLLy78
+//Similar type of question- length of contiguous subarray with at most 2 distinct characters only.
+//Also known as length of contiguous subarray with at most 2 distinct integers
+
 
 class Solution {
 public:
