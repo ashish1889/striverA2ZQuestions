@@ -1,0 +1,39 @@
+//Question: https://leetcode.com/problems/longest-repeating-character-replacement/description/
+// Youtube video: https://www.youtube.com/watch?v=qxDH4nxtt1w
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+     
+        int start = 0;
+        int end = 0;
+        int freq[26]= {0};
+        int maxFreq = 0;
+        int result = 0;
+        while(end<s.size())
+        {
+            char c = s.at(end);
+            freq[c-'A']++;
+           // maxFreq = 0;
+           // int i = 0;
+          //  while(i<26)
+          //  {
+          //    maxFreq = max(freq[i], maxFreq);
+           //   i++;
+           // }
+            
+            maxFreq = max(freq[c-'A'], maxFreq);
+            if(end - start + 1 - maxFreq > k) {
+        char startChar = s.at(start);
+        freq[startChar-'A']--;
+        
+        start++;
+      }
+      else
+      result = max(end - start + 1, result);
+      end++;
+
+        }
+        return result;
+    }
+};
