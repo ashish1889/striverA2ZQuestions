@@ -1,5 +1,7 @@
 // Java soln : https://leetcode.com/problems/count-number-of-nice-subarrays/
 //C++ soln : https://www.youtube.com/watch?v=E80cxppKL9Y
+//Question: https://leetcode.com/problems/count-number-of-nice-subarrays/description/
+//TC:O(n)  SC:O(n)
 
 //C++ code:
 
