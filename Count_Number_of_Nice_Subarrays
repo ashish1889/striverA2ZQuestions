@@ -1,0 +1,30 @@
+// Java soln : https://leetcode.com/problems/count-number-of-nice-subarrays/
+//C++ soln : https://www.youtube.com/watch?v=E80cxppKL9Y
+
+//C++ code:
+
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+
+        unordered_map<int,int> mp;
+        int oddCount = 0;
+        int count = 0;
+
+        for(int i = 0;i<nums.size();i++)
+        {
+            oddCount+=nums[i]%2;
+            if(oddCount == k)
+            count++;
+            
+            if(mp.find(oddCount - k)!=mp.end())
+            count+= mp[oddCount - k];
+
+            if(mp.find(oddCount)!=mp.end())
+              mp[oddCount]++;
+              else
+              mp[oddCount]= 1;
+        }
+        return count;
+    }
+};
