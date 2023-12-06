@@ -18,7 +18,14 @@ public:
             oddCount+=nums[i]%2;
             if(oddCount == k)
             count++;
-            
+            /*
+              for i/p: nums = [1,1,2,1,1], k = 3
+              The only sub-arrays with 3 odd numbers are [1,1,2,1] and [1,2,1,1].
+              So to get other required subarray with same odd numbers count this logic 
+              is used. From index 0 to index 4 there are 4 odd nums and if we exclude 
+              index 0 , so remaining subarray will also have 3 odd numbers resulting 
+              in 2 sub arrays having 3 odd numbers. So below logic handles that
+             */
             if(mp.find(oddCount - k)!=mp.end())
             count+= mp[oddCount - k];
 
