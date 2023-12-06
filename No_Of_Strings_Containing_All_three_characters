@@ -1,0 +1,31 @@
+//Question: https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/
+
+//Code in C++
+
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        int start=0;
+        int end=0;
+        int len = s.length();
+        int count[3]={0};
+       // cout<<count[0]<<"||"<<count[1]<<"||"<<count[2]<<endl;
+        int res = 0;
+        while(/*start<end &&*/ end<len)
+        {    count[s.at(end)-'a']+= 1; //This step should be placed at start of while loop which i was taking as later earlier in code
+               while(count[0]>=1&&count[1]>=1&&count[2]>=1)  // Here mistake i did was to take condition as if((count[0]+count[1]+count[2])==3)
+               {
+               //  cout<<s.at(start)<<endl;
+                  count[s.at(start)-'a']--;
+                  res+=len-end;  // This gives number of substrings formed starting from current substring and other substrings formed including remaining characters
+                  start++;
+               }
+            
+              //if(count[s.at(end)-'a'] == 0) // This was mistake line which is to be taken in start of loop only
+              // count[s.at(end)-'a']+= 1;
+              end++;
+
+        }
+        return res;
+    }
+};
