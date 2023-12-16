@@ -1,0 +1,201 @@
+//Question link: https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/description/
+//Useful video: https://www.youtube.com/watch?v=U0utLw_vWGM
+
+//Correct code:
+class Solution {
+public:
+    int maxScore(vector<int>& cardPoints, int k) {
+        int res = INT_MAX;
+        int maxSum = 0;
+        int start = 0;
+        int last = 0;
+        int len = cardPoints.size();
+        int sum = 0;
+      
+
+        while(start<len)
+        {
+         maxSum +=cardPoints[start];
+         start++;
+        }
+        start = 0;
+        
+        while(last<len)
+        {
+       
+//error 1- first compared in below condition as last-start+1<=k
+//error 2- second changed logic to last-start+1<(len-k) causing
+//runtime error then changed to below logic
+         while(last-start+1<=(len-k))
+         {
+            sum+= cardPoints[last];
+            last++;
+
+         }
+         res = min(res,sum);
+         sum-= cardPoints[start];
+         start++;
+        }
+        return (maxSum - res);
+    }
+};
+
+
+
+============================================================================================================================================
+//error 1- first compared in below condition as last-start+1<=k
+
+class Solution {
+public:
+    int maxScore(vector<int>& cardPoints, int k) {
+        int res = INT_MAX;
+        int maxSum = 0;
+        int start = 0;
+        int last = 0;
+        int len = cardPoints.size();
+        int sum = 0;
+      
+
+        while(start<len)
+        {
+         maxSum +=cardPoints[start];
+         start++;
+        }
+        start = 0;
+        
+        while(last<len)
+        {
+       
+//error 1- first compared in below condition as last-start+1<=k
+         while(last-start+1<= k)
+         {
+            sum+= cardPoints[last];
+            last++;
+
+         }
+         res = min(res,sum);
+         sum-= cardPoints[start];
+         start++;
+        }
+        return (maxSum - res);
+    }
+};
+
+O/p: 
+Input
+cardPoints =
+[1,2,3,4,5,6,1]
+k =
+3
+Output
+16
+Expected
+12
+
+Input
+cardPoints =
+[2,2,2]
+k =
+2
+Output
+2
+Expected
+4
+
+Input
+cardPoints =
+[9,7,7,9,7,7,9]
+k =
+7
+Output
+0
+Expected
+55
+
+======================================================================================================================================================
+
+//error 2- second changed logic to last-start+1<(len-k) causing runtime error then changed to below logic
+
+class Solution {
+public:
+    int maxScore(vector<int>& cardPoints, int k) {
+        int res = INT_MAX;
+        int maxSum = 0;
+        int start = 0;
+        int last = 0;
+        int len = cardPoints.size();
+        int sum = 0;
+      
+
+        while(start<len)
+        {
+         maxSum +=cardPoints[start];
+         start++;
+        }
+        start = 0;
+        
+        while(last<len)
+        {
+       
+
+//error 2- second changed logic to last-start+1<(len-k) causing runtime error then changed to below logic
+         while(last-start+1<(len-k))
+         {
+            sum+= cardPoints[last];
+            last++;
+
+         }
+         res = min(res,sum);
+         sum-= cardPoints[start];
+         start++;
+        }
+        return (maxSum - res);
+    }
+};
+
+
+O/p:
+
+Runtime Error
+=================================================================
+==22==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6030000000f0 at pc 0x0000003670ec bp 0x7ffe41d293c0 sp 0x7ffe41d293b8
+READ of size 4 at 0x6030000000f0 thread T0
+    #2 0x7f2073919082  (/lib/x86_64-linux-gnu/libc.so.6+0x24082)
+0x6030000000f0 is located 0 bytes to the right of 32-byte region [0x6030000000d0,0x6030000000f0)
+allocated by thread T0 here:
+    #6 0x7f2073919082  (/lib/x86_64-linux-gnu/libc.so.6+0x24082)
+Shadow bytes around the buggy address:
+  0x0c067fff7fc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c067fff7fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c067fff7fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c067fff7ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c067fff8000: fa fa fd fd fd fa fa fa fd fd fd fd fa fa fd fd
+=>0x0c067fff8010: fd fa fa fa fd fd fd fa fa fa 00 00 00 00[fa]fa
+  0x0c067fff8020: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8030: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8040: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8060: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==22==ABORTING
+
+
