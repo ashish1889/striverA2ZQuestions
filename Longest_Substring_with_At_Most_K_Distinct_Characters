@@ -1,0 +1,26 @@
+// Question link: https://www.codingninjas.com/studio/problems/longest-substring-with-at-most-k-distinct-characters_2221410?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
+
+//Solution: keep revising this question- uses two pointer approach
+//exact trap in code is 1.  where to populate the unordered_map
+//2. when to check for the length of the string
+
+#include <unordered_map> 
+int kDistinctChars(int k, string &str)
+{
+     unordered_map<char, int> cnt;
+        int n = str.size();
+        int ans = 0, j = 0;
+        for (int i = 0; i < n; ++i) {
+            cnt[str[i]]++; // unordered_map is populated
+            while (cnt.size() > k) {
+                if (--cnt[str[j]] == 0) {
+                    cnt.erase(str[j]);
+                }
+                ++j;  //start pointer is incremented to keep window size in range of
+            }
+            ans = max(ans, i - j + 1); //each time comaprison mad to length of string
+        }
+        return ans;
+}
+
+
