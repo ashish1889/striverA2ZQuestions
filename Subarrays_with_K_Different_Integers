@@ -1,0 +1,34 @@
+//Question: https://leetcode.com/problems/subarrays-with-k-different-integers/description/
+//Good youtue video: https://www.youtube.com/watch?v=akwRFY2eyXs
+//Approach: Here for taking number of subarrays with exactly k different integers 
+// = (number of subarrays with atmost k different integers - number of subarrays with atmost k-1 different integers)
+class Solution {
+public:
+    int atMost(vector<int>& nums, int k){
+        int i = 0;
+        int j = 0;
+        int count = 0;
+        map<int,int> m;
+        while(i<nums.size())
+        {
+            m[nums[i]]++;
+            while(m.size()>k)
+            {
+                auto it= m.find(nums[j]);
+                it->second--;
+                if(it->second == 0) m.erase(nums[j]);
+                j++;
+            }
+            //here count maintains number of subarray eg: [1,2,3] so no. of subarrays with atmost 3 different integers is 
+            //[1],[2],[3],[1,2],[2,3],[1,2,3] = 6
+            count+=(i-j+1);
+            i++;
+        }
+        return count;
+
+    }
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+
+        return(atMost(nums,k)-atMost(nums,k-1));
+    }
+};
